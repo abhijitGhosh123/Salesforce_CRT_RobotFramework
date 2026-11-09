@@ -1,0 +1,44 @@
+{
+  "contacts": [
+    {
+      "testDataId": "CONTACT_001",
+      "scenario": "Valid Contact",
+      "firstName": "Vipul",
+      "lastName": "Automation",
+      "emailPrefix": "vipul.automation",
+      "phone": "9876543210",
+      "accountName": "CRT_VIPUL_ACCOUNT_20261022083225",
+      "expectedResult": "success"
+    },
+      {
+      "testDataId": "CONTACT_002",
+      "scenario": "Valid Contact",
+      "firstName": "Vipulabc",
+      "lastName": "Automation234",
+      "emailPrefix": "vipul.automation",
+      "phone": "9876543210",
+      "accountName": "CRT_VIPUL_ACCOUNT_20261022083225",
+      "expectedResult": "success"
+    },
+    {
+      "testDataId": "CONTACT_003",
+      "scenario": "Contact Without Last Name",
+      "firstName": "Rahul",
+      "lastName": "",
+      "emailPrefix": "vipul.automation",
+      "phone": "9876543211",
+      "accountName": "CRT_VIPUL_ACCOUNT_20261027044658",
+      "expectedResult": "failure"
+    },
+    {
+      "testDataId": "CONTACT_004",
+      "scenario": "Invalid Email",
+      "firstName": "Priya",
+      "lastName": "Automation",
+      "email": "invalid-email",
+      "phone": "9876543212",
+      "accountName": "Automation Test Account",
+      "expectedResult": "failure"
+    }
+  ]
+}
