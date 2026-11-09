@@ -12,7 +12,7 @@ Suite Teardown               End suite
 
 TC01_Account&Contact Creation in Salesforce
     [Documentation]          TC to login into SF and create an account & Contact
-    [Tags]                   SFAutomation
+    [Tags]                   E2ESFautomation
     Login                    ${login_url}                ${username}                 ${password}
     VerifyText               Developer Edition
     LaunchApp                Sales
