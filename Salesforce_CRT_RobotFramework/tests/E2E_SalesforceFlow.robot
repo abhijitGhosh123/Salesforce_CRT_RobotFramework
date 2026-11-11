@@ -1,75 +1,81 @@
 *** Settings ***
-Resource                     ../resources/common.robot
-Library                      QForce
-Library                      QWeb
-Library                      DateTime
-Library                      FakerLibrary
-Suite Setup                  Setup Browser
-Suite Teardown               End suite
+Resource                        ../resources/commonResources.resource
+Library                         QForce
+Library                         QWeb
+Library                         DateTime
+Library                         FakerLibrary
+Suite Setup                     Setup Browser
+Suite Teardown                  End suite
 
 
 *** Test Cases ***
 
-TC01_Account&Contact Creation in Salesforce
-    [Documentation]          TC to login into SF and create an account & Contact
-    [Tags]                   E2ESFautomation
-    Login                    ${login_url}                ${username}                 ${password}
-    VerifyText               Developer Edition
-    LaunchApp                Sales
-    ClickText                Accounts
+TC_E2E_Account,Contact,Lead & Opportunity Creation in Salesforce
+    [Documentation]             TC to login into SF and create an account & Contact
+    [Tags]                      E2ESFautomation
+    Login                       ${login_url}                ${username}            ${password}
+    VerifyText                  Developer Edition
+    LaunchApp                   Sales
+    ClickText                   Accounts
 
     #Creating Account record
-    ClickUntil               Account Information         New                         partial_match=False
-    UseModal                 On
-    ${randomAccountName}=    FakerLibrary.Company
-    ${accountName}=          Catenate                    SEPARATOR=__                Copado                   ${randomAccountName}
-    Set Suite Variable       ${accountName}
-    ${date} =                Get Current Date            UTC
-    TypeText                 Account Name                ${accountName}              anchor=Parent Account
-    TypeText                 Phone                       +12258443456789             anchor=Fax
-    TypeText                 Fax                         +12258443456766
-    TypeText                 Website                     https://www.salesforce.com
-    Picklist                 Type                        Prospect
-    Picklist                 Industry                    Finance
+    ${randomAccountName}=       FakerLibrary.Company
+    ${accountName}=             Catenate                    SEPARATOR=__           Copado                    ${randomAccountName}
+    ${account_PhoneNumber}=     FakerLibrary.Phone Number
+    ${account_AnnualRevenue}=                               FakerLibrary.Random Number                       digits=9
 
-    TypeText                 Employees                   35000
-    TypeText                 Annual Revenue              12 billion
-    ClickText                Save                        partial_match=False
-    sleep                    30s
-    ${accountID}=            Get Record ID From Url
-    Set Suite Variable       ${accountID}
-    Log To Console           ${accountID}
+    #TC01_Creating an account record and validating whether account record is being created successfully or not
+    Run Keyword And Continue On Failure                     Create Account Record                            ${accountName}              ${account_PhoneNumber}            ${account_AnnualRevenue}
 
-    #Validating that Account record is correctly created
-    ClickText                Details
-    VerifyText               ${accountName}
-    VerifyText               35,000
+    ${accountID}=               Get Record ID From Url
+    Log To Console              ${accountID}
+
+
 
     # Create A Contact For The Account
+    ${contact_firstName}=       FakerLibrary.First Name
+    ${contact_lastName}=        FakerLibrary.Last Name
+    ${contact_phoneNumber}=     FakerLibrary.Phone Number
+    ${conatct_mobileNumber}=    FakerLibrary.Phone Number
+    ${contact_email}=           FakerLibrary.Email
 
-    ClickText                Accounts
-    VerifyText               ${accountName}
-    VerifyText               Contacts
 
-    ClickUntil               Email                       Contacts
-    ClickUntil               Contact Information         New                         partial_match=False
-    UseModal                 On
-    Picklist                 Salutation                  Mr.
-    ${firstName}=            FakerLibrary.First Name
-    ${lastName}=             FakerLibrary.Last Name
-    TypeText                 First Name                  ${firstName}
-    TypeText                 Last Name                   ${lastName}
-    TypeText                 Phone                       +00150345678134             anchor=Mobile
-    TypeText                 Mobile                      +00150345678178
-    Combobox                 Search Accounts...          Salesforce                  selection_delay=2
+    #TC02_Creating a contact record and validating that contact record is being created successfully .
+    Run Keyword And Continue On Failure                     Create A Contact For The Account                 ${accountName}              ${contact_firstName}        ${contact_lastName}        ${contact_phoneNumber}    ${conatct_mobileNumber}    ${contact_email}
 
-    TypeText                 Email                       richard.brown@gmail.com     anchor=Reports To
-    TypeText                 Title                       Manager
-    ClickText                Save                        partial_match=False
-    Sleep                    1
-    ClickText                Contacts
-    VerifyText               ${firstName} ${lastName}
-    Set Suite Variable       ${ContactName}              ${firstName} ${lastName}
-    
+
+
     #Creating Lead record
+    ${lead_firstName}=          FakerLibrary.First Name
+    ${lead_lastName}=           FakerLibrary.Last Name
+    ${lead_companyName}=        FakerLibrary.Company
+    ${lead_phoneNumber}=        FakerLibrary.Phone Number
+    ${lead_website}=            FakerLibrary.Url
+    ${lead_email}=              FakerLibrary.Email
+
+    #TC_Creating a lead record and validating whether lead record is being created successfully or not
+    Run Keyword And Continue On Failure                     Create Lead Record     ${lead_firstName}         ${lead_lastName}            ${lead_companyName}         ${lead_website}            ${lead_email}
+
+
+
+
+    #Creating an Opportunity record
+
+    ClickText                   Show more actions
+    ClickText                   Convert
+    UseModal                    On
+    VerifyText                  Convert Lead
+    ClickText                   Convert                     partial_match=False
+    UseModal                    Off
+    UseModal                    On
+    VerifyText                  Your lead has been converted
+    ClickText                   Go to Leads
+    UseModal                    Off
+    ClickText                   Select a List View: Leads
+    ClickText                   My Leads
+    ClickText                   Change Status
+    ClickText                   Close
+    ClickText                   Opportunities
+    ClickText                   Growmore-
+    ClickText                   Details
     
