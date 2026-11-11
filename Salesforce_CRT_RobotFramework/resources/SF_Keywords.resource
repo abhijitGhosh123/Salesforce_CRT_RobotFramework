@@ -99,7 +99,6 @@ Create Lead Record
 
 Converting A Lead To Opportunity-Account-Contact
     [Documentation]    Keyword to convert a lead to Account , Contact and Opportunity
-    [Arguments]
     ClickText          Show more actions
     ClickText          Convert
     UseModal           On
