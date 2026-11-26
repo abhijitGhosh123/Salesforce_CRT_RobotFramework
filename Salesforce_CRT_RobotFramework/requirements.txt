@@ -12,6 +12,7 @@ json
 requests
 Py JWT
 cryptography
+python-dotenv
 
 ##AI Evals
 ragas
