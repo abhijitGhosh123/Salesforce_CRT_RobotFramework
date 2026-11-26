@@ -1,0 +1,14 @@
+#Salesforce 
+simple-salesforce
+pandas
+numpy
+openpyxl
+
+##Static analysis for robotframework
+robotframework-robocop
+json
+
+##Org Intelligence layer 
+requests
+Py JWT
+cryptography
