@@ -12,3 +12,7 @@ json
 requests
 Py JWT
 cryptography
+
+##AI Evals
+ragas
+deepeval
