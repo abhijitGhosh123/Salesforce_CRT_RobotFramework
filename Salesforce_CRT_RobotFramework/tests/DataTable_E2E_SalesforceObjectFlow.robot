@@ -23,7 +23,6 @@ TC_DataTable_E2E_Account,Contact,Lead & Opportunity Creation in Salesforce
     ${accountID}=               Get Record ID From Url
     Log To Console              ${accountID}
 
-
     #TC02_Creating a contact record and validating that contact record is being created successfully .
     Run Keyword And Continue On Failure                     Create A Contact For The Account                        ${dt_E2E_SalesforceFlow_Abhijit.Account Name}           ${dt_E2E_SalesforceFlow_Abhijit.Conatct FirstName}      ${dt_E2E_SalesforceFlow_Abhijit.Conatct LastName}    ${dt_E2E_SalesforceFlow_Abhijit.Contact PhoneNumber}    ${dt_E2E_SalesforceFlow_Abhijit.Contact MobileNumber}    ${dt_E2E_SalesforceFlow_Abhijit.Conatct Email}
 
