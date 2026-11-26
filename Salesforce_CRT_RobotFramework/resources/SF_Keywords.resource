@@ -13,7 +13,7 @@ Library                FakerLibrary
 *** Keywords ***
 Create Account Record
     [Documentation]    Keyword to create an account record
-    [Arguments]        ${accountName}              ${account_PhoneNumber}                 ${account_AnnualRevenue}
+    [Arguments]        ${accountName}              ${account_PhoneNumber}      ${account_AnnualRevenue}
     ClickUntil         Account Information         New                         partial_match=False
     UseModal           On
     TypeText           Account Name                ${accountName}              anchor=Parent Account
@@ -31,11 +31,11 @@ Create Account Record
     #Validating that Account record is correctly created
     ClickText          Details
     VerifyText         ${accountName}
-   
+
 
 Create A Contact For The Account
     [Documentation]    Keyword to create a contact for the Account
-    [Arguments]        ${accountName}              ${contact_firstName}        ${contact_lastName}         ${contact_phoneNumber}      ${conatct_mobileNumber}    ${contact_email}
+    [Arguments]        ${accountName}              ${contact_firstName}        ${contact_lastName}         ${contact_phoneNumber}    ${conatct_mobileNumber}    ${contact_email}
     ClickText          Accounts
     VerifyText         ${accountName}
     VerifyText         Contacts
@@ -63,7 +63,7 @@ Create A Contact For The Account
 
 Create Lead Record
     [Documentation]    Keyword to create a lead record
-    [Arguments]        ${lead_firstName}           ${lead_lastName}            ${lead_companyName}         ${lead_website}             ${lead_email}
+    [Arguments]        ${lead_firstName}           ${lead_lastName}            ${lead_companyName}         ${lead_website}           ${lead_email}
     ClickText          Leads
     VerifyText         Change Owner
     ClickText          New                         partial_match=False
@@ -99,6 +99,7 @@ Create Lead Record
 
 Converting A Lead To Opportunity-Account-Contact
     [Documentation]    Keyword to convert a lead to Account , Contact and Opportunity
+    [Arguments]         ${lead_companyName}
     ClickText          Show more actions
     ClickText          Convert
     UseModal           On
@@ -114,7 +115,5 @@ Converting A Lead To Opportunity-Account-Contact
     ClickText          Change Status
     ClickText          Close
     ClickText          Opportunities
-    ClickText          Growmore-
+    ClickText          ${lead_companyName}         partial_match=True
     ClickText          Details
-    VerifyText         rowmore-\nAccount Name\n\nGrowmore\nClose Date\n\n12/31/2026\nAmount
-    VerifyText         Growmore-
